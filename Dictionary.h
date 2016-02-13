@@ -317,7 +317,14 @@ public:
         }
         return result;
     }
-
+    /**
+     * @brief clear data in dictionary
+     */
+    void clear(){
+        dict->Clear();
+        guide->Clear();
+        data.clear();
+    }
     /**
     * @brief ~DictionaryBase - destructor
     */
@@ -380,10 +387,10 @@ public:
             }
             std::vector<Serial> newData(dataSize);
             int i = 0;
-             while(i < dataSize) {
+            while(i < dataSize) {
                  if(!newData[i].deserialize(is)) return false;
                  i++;
-             }
+            }
             this->init();
             this->data.swap(newData);
         }else{
