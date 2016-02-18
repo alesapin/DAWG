@@ -3,9 +3,16 @@ DAWG is highlevel C++ wrapper of <a href="https://code.google.com/archive/p/dawg
 It allows you to store template data in very compact and effective 
 <a href="https://en.wikipedia.org/wiki/Directed_acyclic_word_graph">Directed acyclic word graph</a>
 data structure. 
+# Installation
+This is <a href = https://en.wikipedia.org/wiki/Header-only>header-only library</a>, so installation is not required. Just put it into your include path or project.
+Tested on:
+<ul>
+<li>g++ 4.8</li>
+<li>clang++ 3.5.0</li>
+</ul>
 # Deps
 Library allows you to store and serialize <a href="https://en.wikipedia.org/wiki/Passive_data_structure">POD</a>
-or inherited from ISerializable interface classes. This is achived with C++11 <type_traits>, so <i><b>-std=c++0x</b></i>
+or inherited from ISerializable interface classes. This is achived with C++11 &lt; type_traits>, so <i><b>-std=c++0x</b></i>
 is required.
 
 # Usage
