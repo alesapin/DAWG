@@ -222,7 +222,7 @@ public:
      * @param prefix - prefix to start traversal
      * @return - iterator
      */
-    ConstIterator begin(std::string prefix = ""){
+    ConstIterator begin(std::string prefix = "") {
         start(prefix);
         next();
         return ConstIterator(this);
@@ -231,7 +231,7 @@ public:
      * @brief end - get end iterator
      * @return - iterator
      */
-    ConstIterator end() const{
+    ConstIterator end() const {
         ConstIterator result(0);
         result.at.key = '\0';
         return result;
@@ -248,7 +248,7 @@ public:
      * @param str - key
      * @return contains or not
      */
-    bool contains(const std::string& str) const{
+    bool contains(const std::string& str) const {
         return dict->Contains(str.c_str(),str.length());
     }
     /**
@@ -276,7 +276,7 @@ public:
      * @brief getAllKeys - get all keys of dictionary
      * @return vector of keys
      */
-    std::vector<std::string> getAllKeys() const{
+    std::vector<std::string> getAllKeys() const {
         start("");
         std::vector<std::string> result;
         while(next()){
@@ -293,10 +293,10 @@ public:
      * @param prefix - string to complete
      * @return all posible matches
      */
-    std::vector<std::string> completeKey(const std::string& prefix) const{
+    std::vector<std::string> completeKey(const std::string& prefix) const {
         std::vector<std::string> result;
         if(start(prefix)){
-            while(comp->Next()){
+            while(next()){
                 result.push_back(getCurrentKey());
             }
         }
@@ -308,7 +308,7 @@ public:
      * @param prefix - string to complete
      * @return all posible matches' values
      */
-    std::vector<T> completeValues(const std::string& prefix) const{
+    std::vector<T> completeValues(const std::string& prefix) const {
         std::vector<T> result;
         if(start(prefix)) {
             while(comp->Next()){
@@ -316,6 +316,17 @@ public:
             }
         }
         return result;
+    }
+    DawgRecord followWord(const std::string& val){
+      uint index;
+      int startPos = 0, endPos = val.length();
+      while(dict->Follow(val[startPos], &index) && startPos < endPos){
+          startPos++;
+      }
+      if(dict->has_value(index)){
+        return {val.substr(0,startPos),data[dict->value(index)]};
+      }
+      throw NoSuchKeyException(val);
     }
     /**
      * @brief clear data in dictionary
